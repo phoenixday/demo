@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="fragments/header :: header" />
+<title>Import</title>
 <body>
-home, sweet home
+<div class="container h-100">
+    <div class="d-flex flex-row min-vh-100 justify-content-center align-items-center">
+        <div class="col-8">
+            <form>
+                <div class="input-group mb-3">
+                    <label for="format-select" class="input-group-text">Choose format</label>
+                    <select id="format-select" class="form-select">
+                        <option selected value="ese">ESE</option>
+                        <option value="axmpr">AXMPR</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="formFile">Upload XML</label>
+                    <input class="form-control" type="file" id="formFile" accept=".xml">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
+<div th:include="fragments/footer :: footer" />
 </html>

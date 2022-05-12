@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //TODO: nejaky view
 //TODO: better import for ontmalizer
 //TODO: try not to change xsd
+//TODO: add security to html forms
 //TODO: tests
 @SpringBootApplication
 public class DemoApplication {
