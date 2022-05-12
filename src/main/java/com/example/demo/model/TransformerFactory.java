@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.Optional;
 
+//TODO: make it somehow with maps, without ifs ?
 /**
  * A factory that chooses either AXMPRTransformer or ESETransformer.
  */

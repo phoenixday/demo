@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Queries;
+import com.example.demo.model.QueriesFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -16,17 +19,12 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/import/ese")
-    public String submitXMLForESE(Model model) throws IOException {
-//        Queries queries = new ESEQueries(multipartFile.getOriginalFilename(), outputRDF);
-//        return queries.getQueries();
-        return "import-ese";
-    }
+    @PostMapping("/import")
+    public String showQueries(@RequestParam("format") String format, @RequestParam("file") MultipartFile file, Model model) {
 
-    @GetMapping("/import/axmpr")
-    public String submitXMLForAXMPR() throws IOException {
-//        Queries queries = new AXMPRQueries(multipartFile.getOriginalFilename(), outputRDF);
-//        return queries.getQueries();
-        return "import-axmpr";
+        Optional<Queries> queries = QueriesFactory.chooseQueriesByFormat(format, file.getOriginalFilename(), outputRDF);
+        if (queries.isEmpty()) return "redirect:/error";
+        model.addAttribute("queries", queries.get().computeQueries());
+        return "redirect:/show-queries";
     }
 }

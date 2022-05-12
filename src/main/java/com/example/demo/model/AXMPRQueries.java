@@ -17,7 +17,7 @@ public class AXMPRQueries extends Queries{
     }
 
     @Override
-    public List<QueryResults> getQueries() {
+    public List<QueryResults> computeQueries() {
         return List.of(selectAll(),
                 selectAllNames(),
                 selectAllLocalities());

@@ -36,11 +36,11 @@ public abstract class Queries {
     /**
      * By default, list of queries should contain at least selectAll().
      */
-    abstract public List<QueryResults> getQueries();
+    abstract public List<QueryResults> computeQueries();
 
     /**
      * A method that returns all triples.
-     * @return all triples stored in TDB
+     * @return all triples made from RDF
      */
     abstract QueryResults selectAll();
 }
