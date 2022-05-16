@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.model.transformers;
 
 import lombok.AllArgsConstructor;
 
@@ -8,21 +8,33 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
+import java.util.Map;
 
 //TODO: add reasoning
-@AllArgsConstructor
-public class ESETransformer implements Transformer{
+public class XSLTTransformer implements Transformer{
 
+    Map <String, String> xsltMap = Map.of(
+            "ESE", "src/main/java/com/example/demo/model/assets/ese/transform.xslt",
+            "AXMPR", "src/main/java/com/example/demo/model/assets/axmpr/transform.xslt"
+    );
+
+    String format;
     String inputXML;
     String outputRDF;
 
+    public XSLTTransformer(String format, String inputXML, String outputRDF) {
+        this.format = format.toUpperCase();
+        this.inputXML = inputXML;
+        this.outputRDF = outputRDF;
+    }
+
     /**
-     * A method to extract Dublin Core items from XML in ESE format. Uses XSLT for extracting.
+     * A method to convert XML to RDF/XML. Uses XSLT.
      */
     @Override
     public void transformXMLToRDF() {
         javax.xml.transform.TransformerFactory factory = javax.xml.transform.TransformerFactory.newInstance();
-        Source xslt = new StreamSource(new File("com/example/demo/model/assets/ese/transform.xslt"));
+        Source xslt = new StreamSource(new File(xsltMap.get(format)));
         javax.xml.transform.Transformer transformer = null;
         try {
             transformer = factory.newTransformer(xslt);

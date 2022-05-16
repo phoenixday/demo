@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<head th:replace="fragments/header :: header"></head>
 <title>Import</title>
-<body>
+<body style="background-color: #bcd4e6">
 <div class="container h-100">
     <div class="d-flex flex-row min-vh-100 justify-content-center align-items-center">
-        <div class="col-8">
-            <form>
-                <div class="input-group mb-3">
-                    <label for="format-select" class="input-group-text">Choose format</label>
-                    <select id="format-select" class="form-select">
-                        <option selected value="ese">ESE</option>
-                        <option value="axmpr">AXMPR</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <label class="input-group-text" for="formFile">Upload XML</label>
-                    <input class="form-control" type="file" id="formFile" accept=".xml">
-                </div>
-            </form>
+        <div class="col-8 card" style="background-color: #f2f3f4">
+            <div class="card-header text-center">
+                Upload XML file for import
+            </div>
+            <div class="card-body">
+                <form name="fileUpload" method="POST" action="upload-xml" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <label for="format-select" class="input-group-text">Choose format</label>
+                        <select id="format-select" class="form-select" name="format">
+                            <option selected value="ese">ESE</option>
+                            <option value="axmpr">AXMPR</option>
+                            <option value="axmpr-ontmalizer">AXMPR (using Ontmalizer)</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="form-file">Upload XML</label>
+                        <input class="form-control" type="file" id="form-file"
+                               name="file" accept=".xml" required="true">
+                    </div>
+                    <div class="text-end">
+                        <input type="submit" class="btn btn-secondary mb-3" value="Upload">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 </body>
-<div th:include="fragments/footer :: footer" />
+<div th:include="fragments/footer :: footer"></div>
 </html>

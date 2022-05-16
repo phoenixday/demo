@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.model.transformers;
 
 /**
  * A common interface for transformers.
@@ -6,7 +6,7 @@ package com.example.demo.model;
 public interface Transformer {
 
     /**
-     * A method to convert XML to RDF.
+     * A method to convert XML to RDF/XML.
      */
     void transformXMLToRDF();
 }

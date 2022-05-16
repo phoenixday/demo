@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.model.transformers;
 
 import lombok.AllArgsConstructor;
 import tr.com.srdc.ontmalizer.XML2OWLMapper;
@@ -9,19 +9,19 @@ import java.io.FileOutputStream;
 
 //TODO: add reasoning
 @AllArgsConstructor
-public class AXMPRTransformer implements Transformer{
-
+public class OntmalizerTransformer implements Transformer{
     String inputXML;
     String outputRDF;
 
     /**
-     * A method to convert XML in AXMPR format to an ontology in RDF/XML. Uses third-party project ontmalizer.
+     * A method to convert XML to RDF/XML. Uses third-party project ontmalizer.
      * <a href="https://github.com/srdc/ontmalizer">https://github.com/srdc/ontmalizer</a>
      */
     @Override
     public void transformXMLToRDF() {
+        String schema = "src/main/java/com/example/demo/model/assets/axmpr/axmpr_complete.xsd";
         // This part converts XML schema to OWL ontology.
-        XSD2OWLMapper mapping = new XSD2OWLMapper(new File("com/example/demo/model/assets/axmpr_complete.xsd"));
+        XSD2OWLMapper mapping = new XSD2OWLMapper(new File(schema));
         mapping.setObjectPropPrefix("");
         mapping.setDataTypePropPrefix("");
         mapping.convertXSD2OWL();

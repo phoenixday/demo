@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<title th:text="|Import ${format}|"></title>
+<body style="background-color: #bcd4e6">
+<div class="container min-vh-100 min-vw-100">
+    <div class="row" style="background-color: #f2f3f4">
+        <div class="col-12">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li th:each="query,iterStat : ${queries}" class="nav-item" role="presentation" th:object="${iterStat}">
+                    <button th:class="'nav-link '+ ((*{index} == 0) ? 'active' : '')" th:id="|query_*{index}-tab|" data-bs-toggle="tab"
+                            th:attr="data-bs-target='#query_'+*{index},
+                            aria-controls='query_'+*{index},
+                            aria-selected=((*{index} == 0) ? 'true' : 'false')"
+                            type="button" role="tab" th:text="${query.description}"></button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div th:each="query,iterStat : ${queries}" th:object="${iterStat}" th:id="|query_*{index}|"
+                     th:attr="aria-labelledby='query_'+*{index}+'-tab'"
+                     th:class="'tab-pane fade ' + ((*{index} == 0) ? 'show active' : '')"
+                     role="tabpanel"  >
+                    <table class="table table-striped table-hover table-sm" style="font-size: xx-small">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th th:each="var : ${query.varNames}" th:text="${var}" scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                            <tr th:each="result,iterStat2 : ${query.results}">
+                                <td><b th:text="(${iterStat2.index} + 1)"></b></td>
+                                <td th:each="var : ${query.varNames}" th:text="${result.get(var)}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:include="fragments/footer :: footer" style="background-color: #bcd4e6"></div>
+</html>
