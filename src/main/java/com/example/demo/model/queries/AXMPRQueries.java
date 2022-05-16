@@ -27,7 +27,8 @@ public class AXMPRQueries extends Queries{
     @Override
     public List<QueryResults> computeQueries() {
         return List.of(selectAll()
-                , selectAllRegionsFromEU());
+                , selectAllRegionsFromEU()
+                , selectAllMaterials());
     }
 
     QueryResults selectAllRegionsFromEU() {
@@ -44,6 +45,43 @@ public class AXMPRQueries extends Queries{
         Query query = QueryFactory.create(queryString);
         try (QueryExecution qexec = QueryExecutionFactory.create(query, getModel())) {
             return new QueryResults("Select all regions from Europe", qexec.execSelect());
+        }
+    }
+
+    QueryResults selectAllMaterials() {
+        String queryString = "" +
+                "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+                "PREFIX dc: <http://purl.org/dc/elements/1.1/>" +
+                "PREFIX dcterms: <http://purl.org/dc/terms/>" +
+                "PREFIX : <http://myloc.org/>" +
+                "PREFIX pubpred: <https://api.museion.cz/schema/axmpr/PublikacePredmetu/>" +
+                "PREFIX mymat: <http://mymat.org/materialPublic>" +
+                "SELECT ?title WHERE {" +
+                "   ?material a mymat: ." +
+                "   ?material dc:title ?title" +
+                "}" ;
+        Query query = QueryFactory.create(queryString);
+        try (QueryExecution qexec = QueryExecutionFactory.create(query, getModel())) {
+            return new QueryResults("Select all materials", qexec.execSelect());
+        }
+    }
+
+    QueryResults selectAllMaterialsFromPredmet() {
+        String queryString = "" +
+                "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+                "PREFIX dc: <http://purl.org/dc/elements/1.1/>" +
+                "PREFIX dcterms: <http://purl.org/dc/terms/>" +
+                "PREFIX : <http://myloc.org/>" +
+                "PREFIX pubpred: <https://api.museion.cz/schema/axmpr/PublikacePredmetu/>" +
+                "SELECT ?inventarniCislo ?materialNazev WHERE {" +
+                "   ?predmet pubpred:materialPublic* ?material ." +
+                "   ?predmet pubpred:inventarniCislo ?inventarniCislo ." +
+                "   ?material dc:title ?materialNazev" +
+                "}" +
+                "ORDER BY ?inventarniCislo ?materialNazev";
+        Query query = QueryFactory.create(queryString);
+        try (QueryExecution qexec = QueryExecutionFactory.create(query, getModel())) {
+            return new QueryResults("Select all materials", qexec.execSelect());
         }
     }
 }

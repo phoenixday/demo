@@ -4,7 +4,8 @@ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 xmlns:dc="http://purl.org/dc/elements/1.1/"
 xmlns:myloc="http://myloc.org/"
 xmlns:mymat="http://mymat.org/"
-xmlns:myera="http://myera.org/">
+xmlns:myera="http://myera.org/"
+xmlns:pubpred="https://api.museion.cz/schema/axmpr/PublikacePredmetu/">
 
 <!-- regions -->
 
